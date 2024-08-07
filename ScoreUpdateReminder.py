@@ -154,8 +154,8 @@ def save(md_content: str, full_name: str, push_token: str):
     if not md_content.strip():
         raise ValueError("内容获取失败")
 
-    old_filename = f"{full_name}的成绩.md"
-    md5_filename = f'{full_name}的md_content.txt'
+    old_filename = "成绩.md"
+    md5_filename = 'md_content.txt'
     new_md5 = save_md5(md_content)
 
     try:
