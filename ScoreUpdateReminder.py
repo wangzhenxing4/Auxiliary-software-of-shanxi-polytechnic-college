@@ -43,6 +43,13 @@ def get_verification_code_and_rsa_modulus(session) -> tuple[str, str]:
     verify_code = ddddocr.DdddOcr(show_ad=False).classification(picture_response.content)
     return verify_code, rsa_modulus
 
+def read_setting(file_path):
+    with open(file_path, 'r') as file:
+        for line in file:
+            if line.startswith("ScoreUpdateReminder"):
+                return line.split('=')[1].strip()
+    return None
+
 
 def login(username: str, password: str) -> tuple[dict, str]:
     with requests.Session() as session:
@@ -176,6 +183,12 @@ def save(md_content: str, full_name: str, push_token: str):
 
 
 def rerun(max_retries=5):
+    setting_file_path = "Switch"
+    score_update_reminder = read_setting(setting_file_path)
+    if score_update_reminder == "关闭":
+        print("成绩更新提醒已关闭。")
+        return
+
     global student_id, password, token
 
     personnel_data = [(student_id, password, token)]
