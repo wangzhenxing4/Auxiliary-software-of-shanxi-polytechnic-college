@@ -40,10 +40,11 @@ def main():
         temperature, check_in_address = retry(
             lambda: checkin(session, name_of_clock_in_personnel, check_in_address_school, check_in_address_home, token, headers))
         results.append((name_of_clock_in_personnel, "的自动打卡已成功", f"打卡温度：36.{temperature}，打卡地点：{check_in_address}"))
+        push_notification(token, f"**{name_of_clock_in_personnel}的自动打卡执行成功**\n打卡温度：36.{temperature}，打卡地点：{check_in_address}", name_of_clock_in_personnel, success=True)
     except Exception as e:
         results.append((name_of_clock_in_personnel, f"错误原因：{e}"))
         print(f"自动打卡失败：{e}")
-        push_notification(token, f"自动打卡失败\n错误原因：{e}", name_of_clock_in_personnel)
+        push_notification(token, f"自动打卡失败\n错误原因：{e}", name_of_clock_in_personnel, success=False)
     finally:
         session.close()
     return results
@@ -67,17 +68,17 @@ def checkin(session, name_of_clock_in_personnel, check_in_address_school, check_
     }
     response = session.post(checkin_url, data=payload, headers=headers)
     response.raise_for_status()
-    push_notification(token, f"**{name_of_clock_in_personnel}的自动打卡执行成功**\n打卡温度：36.{temperature}，打卡地点：{check_in_address}", name_of_clock_in_personnel)
     return temperature, check_in_address
 
 
-def push_notification(token, content, name_of_clock_in_personnel):
+def push_notification(token, content, name_of_clock_in_personnel, success):
     if not token:
         return
     url = f"https://push.showdoc.com.cn/server/api/push/{token}"
+    title = f"{name_of_clock_in_personnel}的自动打卡执行成功" if success else f"**{name_of_clock_in_personnel}的自动打卡执行失败**"
     data = {
         "token": token,
-        "title": f"{name_of_clock_in_personnel}的每日自动打卡执行情况",
+        "title": title,
         "content": content,
         "template": "html"
     }
