@@ -1,1 +1,31 @@
+name: Run Auto Daily Attendance
 
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '00 16 * * *'
+
+jobs:
+  run-python-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Run Auto Daily Attendance
+        env:
+          NAME: ${{ secrets.NAME }}
+          ID_NO: ${{ secrets.ID_NO }}
+          SCHOOL_ADDRESS: ${{ secrets.SCHOOL_ADDRESS }}
+          HOLIDAY_ADDRESS: ${{ HOLIDAY_ADDRESS }}
+          PUSH_MESSAGE_TOKEN: ${{ secrets.PUSH_MESSAGE_TOKEN }}
+        run: python AutoDailyAttendance.py
