@@ -1,1 +1,47 @@
+name: Run Score Update Reminder
 
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"
+
+jobs:
+  run-python-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+          pip install ddddocr
+          pip install rsa
+
+      - name: Run
+        env:
+          STUDENT_ID: ${{ secrets.STUDENT_ID }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          PUSH_MESSAGE_TOKEN: ${{ secrets.PUSH_MESSAGE_TOKEN }}
+        run: python beta1.0.py
+
+      - name: Check for changes and push if necessary
+        run: |
+          echo "Checking for push_flag.txt in $(pwd)"
+          ls -l
+          if [ -f "push_flag.txt" ]; then
+            echo "push_flag.txt exists"
+            git config --global user.email "actions@github.com"
+            git config --global user.name "GitHub Actions"
+            git add *md_content.txt
+            git commit -m "Update from GitHub Actions" || true
+            git push origin main --force
+          else
+            echo "push_flag.txt does not exist"
+          fi
+        shell: bash
