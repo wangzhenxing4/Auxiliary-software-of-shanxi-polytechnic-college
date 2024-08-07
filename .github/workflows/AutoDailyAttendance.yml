@@ -26,6 +26,6 @@ jobs:
           NAME: ${{ secrets.NAME }}
           ID_NO: ${{ secrets.ID_NO }}
           SCHOOL_ADDRESS: ${{ secrets.SCHOOL_ADDRESS }}
-          HOLIDAY_ADDRESS: ${{ HOLIDAY_ADDRESS }}
+          HOLIDAY_ADDRESS: ${{ secrets.HOLIDAY_ADDRESS }}
           PUSH_MESSAGE_TOKEN: ${{ secrets.PUSH_MESSAGE_TOKEN }}
         run: python AutoDailyAttendance.py
