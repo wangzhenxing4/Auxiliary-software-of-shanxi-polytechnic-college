@@ -23,7 +23,6 @@ jobs:
 
       - name: Run Auto Daily Attendance
         env:
-          NAME: ${{ secrets.NAME }}
           ID_NO: ${{ secrets.ID_NO }}
           SCHOOL_ADDRESS: ${{ secrets.SCHOOL_ADDRESS }}
           HOLIDAY_ADDRESS: ${{ secrets.HOLIDAY_ADDRESS }}
