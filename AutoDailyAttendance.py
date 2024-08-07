@@ -67,7 +67,7 @@ def checkin(session, name_of_clock_in_personnel, check_in_address_school, check_
     }
     response = session.post(checkin_url, data=payload, headers=headers)
     response.raise_for_status()
-    push_notification(token, f"{name_of_clock_in_personnel}：自动打卡执行成功，打卡温度：36.{temperature}，打卡地点：{check_in_address}", name_of_clock_in_personnel)
+    push_notification(token, f"{name_of_clock_in_personnel}的自动打卡执行成功\n打卡温度：36.{temperature}，打卡地点：{check_in_address}", name_of_clock_in_personnel)
     return temperature, check_in_address
 
 
