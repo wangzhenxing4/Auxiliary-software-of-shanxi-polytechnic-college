@@ -89,7 +89,7 @@ def checkin(session, name_of_clock_in_personnel, check_in_address_school, check_
 def push_notification(token, content, name_of_clock_in_personnel, success):
     if not token:
         return
-    url = f"https://push.showdoc.com.cn/server/api/push/{token}"
+    url = f"{token}"
     title = f"{name_of_clock_in_personnel}的自动打卡执行成功" if success else f"**{name_of_clock_in_personnel}的自动打卡执行失败**"
     data = {
         "token": token,
