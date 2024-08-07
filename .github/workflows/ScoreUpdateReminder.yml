@@ -1,4 +1,4 @@
-name: Run Score Update Reminder
+name: Score Update Reminder
 
 on:
   workflow_dispatch:
