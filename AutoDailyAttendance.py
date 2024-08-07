@@ -10,6 +10,12 @@ check_in_address_home = os.environ.get("HOLIDAY_ADDRESS")
 token = os.environ.get("PUSH_MESSAGE_TOKEN")
 CHECK_IN_TIME = '放假'
 
+def read_setting(file_path):
+    with open(file_path, 'r') as file:
+        for line in file:
+            if line.startswith("AutoDailyAttendance"):
+                return line.split('=')[1].strip()
+    return None
 
 def retry(func, max_retries=3, delay=1):
     last_exception = None
@@ -22,22 +28,18 @@ def retry(func, max_retries=3, delay=1):
             sleep(delay)
     raise Exception(f"自动重试达到最大次数：{max_retries}\n错误信息：{last_exception}")
 
-
 def setup():
     session = requests.Session()
     headers = {
         "User-Agent": "Mozilla/5.0 (Linux; Android 12; Redmi K30i 5G Build/SKQ1.211006.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/122.0.6261.120 Mobile Safari/537.36 XWEB/1220099 MMWEBSDK/20240404 MMWEBID/5158 MicroMessenger/8.0.49.2600(0x28003154) WeChat/arm64 Weixin NetType/WIFI Language/zh_CN ABI/arm64",
         "Referer": "http://fdcat.cn365vip.com/index103.php?code=0314LBll2jCZHd4cpTol2klxUR14LBlu&state=1"
     }
-
-    # Perform login to get cookies
     login_url = "http://fdcat.cn365vip.com/addu.php"
     response = session.post(login_url, data={"u_name": id_card_number_of_punch_in_person, "upwd": "111111"}, headers=headers)
     response.raise_for_status()
     cookies = session.cookies.get_dict()
     name_of_clock_in_personnel = get_name(cookies)
     return session, headers, name_of_clock_in_personnel
-
 
 def get_name(cookies):
     if 'unm' in cookies:
@@ -46,8 +48,13 @@ def get_name(cookies):
     else:
         raise Exception("无法获取到打卡人的姓名")
 
-
 def main():
+    setting_file_path = "Switch"  # 替换为您的Switch文件的路径
+    auto_daily_attendance = read_setting(setting_file_path)
+    if auto_daily_attendance == "关闭":
+        print("自动打卡已关闭")
+        return
+
     session, headers, name_of_clock_in_personnel = setup()
     results = []
     try:
@@ -64,12 +71,10 @@ def main():
         session.close()
     return results
 
-
 def login(session, id_card_number_of_punch_in_person, headers):
     login_url = "http://fdcat.cn365vip.com/addu.php"
     response = session.post(login_url, data={"u_name": id_card_number_of_punch_in_person, "upwd": "111111"}, headers=headers)
     response.raise_for_status()
-
 
 def checkin(session, name_of_clock_in_personnel, check_in_address_school, check_in_address_home, headers):
     checkin_url = "http://fdcat.cn365vip.com/adddt_s2_up.php"
@@ -85,7 +90,6 @@ def checkin(session, name_of_clock_in_personnel, check_in_address_school, check_
     response.raise_for_status()
     return temperature, check_in_address
 
-
 def push_notification(url, content, name_of_clock_in_personnel, success):
     if not url:
         return
@@ -100,7 +104,6 @@ def push_notification(url, content, name_of_clock_in_personnel, success):
         response.raise_for_status()
     except requests.RequestException as e:
         print(f"推送失败：{e}")
-
 
 if __name__ == "__main__":
     main()
