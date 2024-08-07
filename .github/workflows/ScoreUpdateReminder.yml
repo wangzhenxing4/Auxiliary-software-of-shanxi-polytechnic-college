@@ -28,7 +28,7 @@ jobs:
           STUDENT_ID: ${{ secrets.STUDENT_ID }}
           PASSWORD: ${{ secrets.PASSWORD }}
           PUSH_MESSAGE_TOKEN: ${{ secrets.PUSH_MESSAGE_TOKEN }}
-        run: python beta1.0.py
+        run: python ScoreUpdateReminder.py
 
       - name: Check for changes and push if necessary
         run: |
