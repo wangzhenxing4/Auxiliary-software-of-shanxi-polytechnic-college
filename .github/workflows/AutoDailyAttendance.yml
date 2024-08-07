@@ -1,4 +1,4 @@
-name: Run Auto Daily Attendance
+name: Auto Daily Attendance
 
 on:
   workflow_dispatch:
