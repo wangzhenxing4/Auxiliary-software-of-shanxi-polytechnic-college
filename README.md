@@ -25,7 +25,7 @@
     X国XX省XX市XX县(区)_XX小区<br>
   - （4）添加STUDENT_ID，内容为你的学号
   - （5）添加PASSWORD，内容是你教务系统的登录密码（务必填写正确）
-  - （6）填写PUSH_MESSAGE_TOKEN，内容是你的showdoc推送服务的API
+  - （6）填写PUSH_MESSAGE_TOKEN，内容是你的完整的专属推送地址
     
 
 ## 特别感谢
