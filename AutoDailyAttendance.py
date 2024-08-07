@@ -1,9 +1,9 @@
 import os
 import requests
+import urllib.parse
 import random
 from time import sleep
 
-name_of_clock_in_personnel = os.environ.get("NAME")
 id_card_number_of_punch_in_person = os.environ.get("ID_NO")
 check_in_address_school = os.environ.get("SCHOOL_ADDRESS")
 check_in_address_home = os.environ.get("HOLIDAY_ADDRESS")
@@ -29,11 +29,26 @@ def setup():
         "User-Agent": "Mozilla/5.0 (Linux; Android 12; Redmi K30i 5G Build/SKQ1.211006.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/122.0.6261.120 Mobile Safari/537.36 XWEB/1220099 MMWEBSDK/20240404 MMWEBID/5158 MicroMessenger/8.0.49.2600(0x28003154) WeChat/arm64 Weixin NetType/WIFI Language/zh_CN ABI/arm64",
         "Referer": "http://fdcat.cn365vip.com/index103.php?code=0314LBll2jCZHd4cpTol2klxUR14LBlu&state=1"
     }
-    return session, headers
+
+    # Perform login to get cookies
+    login_url = "http://fdcat.cn365vip.com/addu.php"
+    response = session.post(login_url, data={"u_name": id_card_number_of_punch_in_person, "upwd": "111111"}, headers=headers)
+    response.raise_for_status()
+    cookies = session.cookies.get_dict()
+    name_of_clock_in_personnel = get_name(cookies)
+    return session, headers, name_of_clock_in_personnel
+
+
+def get_name(cookies):
+    if 'unm' in cookies:
+        unm = cookies['unm']
+        return urllib.parse.unquote(unm)
+    else:
+        raise Exception("无法获取到打卡人的姓名")
 
 
 def main():
-    session, headers = setup()
+    session, headers, name_of_clock_in_personnel = setup()
     results = []
     try:
         retry(lambda: login(session, id_card_number_of_punch_in_person, headers))
