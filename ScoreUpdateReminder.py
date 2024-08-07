@@ -198,7 +198,7 @@ def rerun(max_retries=5):
 
 
 def push_service(md_content: str, full_name: str, push_token: str):
-    url = f"https://push.showdoc.com.cn/server/api/push/{push_token}"
+    url = f"{push_token}"
     data = {
         "title": f"{full_name}考试成绩推送",
         "content": md_content,
