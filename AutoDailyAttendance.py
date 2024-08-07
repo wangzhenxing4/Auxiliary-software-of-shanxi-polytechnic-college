@@ -53,7 +53,7 @@ def main():
     try:
         retry(lambda: login(session, id_card_number_of_punch_in_person, headers))
         temperature, check_in_address = retry(
-            lambda: checkin(session, name_of_clock_in_personnel, check_in_address_school, check_in_address_home, token, headers))
+            lambda: checkin(session, name_of_clock_in_personnel, check_in_address_school, check_in_address_home, headers))
         results.append((name_of_clock_in_personnel, "的自动打卡已成功", f"打卡温度：36.{temperature}，打卡地点：{check_in_address}"))
         push_notification(token, f"**{name_of_clock_in_personnel}的自动打卡执行成功**\n打卡温度：36.{temperature}，打卡地点：{check_in_address}", name_of_clock_in_personnel, success=True)
     except Exception as e:
@@ -71,7 +71,7 @@ def login(session, id_card_number_of_punch_in_person, headers):
     response.raise_for_status()
 
 
-def checkin(session, name_of_clock_in_personnel, check_in_address_school, check_in_address_home, token, headers):
+def checkin(session, name_of_clock_in_personnel, check_in_address_school, check_in_address_home, headers):
     checkin_url = "http://fdcat.cn365vip.com/adddt_s2_up.php"
     check_in_address = check_in_address_home if CHECK_IN_TIME == '放假' else check_in_address_school
     temperature = str(random.randint(0, 9))
@@ -86,13 +86,11 @@ def checkin(session, name_of_clock_in_personnel, check_in_address_school, check_
     return temperature, check_in_address
 
 
-def push_notification(token, content, name_of_clock_in_personnel, success):
-    if not token:
+def push_notification(url, content, name_of_clock_in_personnel, success):
+    if not url:
         return
-    url = f"{token}"
     title = f"{name_of_clock_in_personnel}的自动打卡执行成功" if success else f"**{name_of_clock_in_personnel}的自动打卡执行失败**"
     data = {
-        "token": token,
         "title": title,
         "content": content,
         "template": "html"
