@@ -20,7 +20,7 @@
   **<a href="https://github.com/wangzhenxing4/AutoDailyAttendance">山西职业技术学院自动每日打卡任务</a><br>**
   <br>
   **<a href="https://github.com/wangzhenxing4/ScoreUpdateReminder">山西职业技术学院成绩更新自动推送</a>**
-  ### 特别感谢:<a href="https://github.com/deijing">初沐</a>的提供的源代码以及相关内容的技术支持
+  ### 特别感谢：<a href="https://github.com/deijing">初沐</a>的提供的源代码以及相关内容的技术支持
   ### 特别感谢：这个项目使用到的所有软件提供的软件技术支持
 
 ## 特别说明
