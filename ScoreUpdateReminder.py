@@ -43,6 +43,7 @@ def get_verification_code_and_rsa_modulus(session) -> tuple[str, str]:
     verify_code = ddddocr.DdddOcr(show_ad=False).classification(picture_response.content)
     return verify_code, rsa_modulus
 
+
 def read_setting(file_path):
     with open(file_path, 'r') as file:
         for line in file:
@@ -186,7 +187,6 @@ def rerun(max_retries=3):
     setting_file_path = "Switch"
     score_update_reminder = read_setting(setting_file_path)
     if score_update_reminder == "关闭":
-        print("成绩更新提醒已关闭。")
         return
 
     global student_id, password, token
@@ -202,11 +202,9 @@ def rerun(max_retries=3):
                 md_content = extract_grades(response)
                 save(md_content, full_name, push_token)
                 break
-            except ValueError as e:
-                print(e)
+            except ValueError:
                 attempt += 1
                 if attempt >= max_retries:
-                    print(f"达到最大重试次数，程序终止。")
                     break
 
 
@@ -219,8 +217,8 @@ def push_service(md_content: str, full_name: str, push_token: str):
     try:
         response = requests.post(url, json=data)
         response.raise_for_status()
-    except requests.RequestException as e:
-        print(f"推送失败：{e}")
+    except requests.RequestException:
+        print()
 
 
 if __name__ == "__main__":
