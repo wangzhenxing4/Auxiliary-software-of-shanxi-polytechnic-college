@@ -182,7 +182,7 @@ def save(md_content: str, full_name: str, push_token: str):
             file.write('MD5 changed')
 
 
-def rerun(max_retries=5):
+def rerun(max_retries=3):
     setting_file_path = "Switch"
     score_update_reminder = read_setting(setting_file_path)
     if score_update_reminder == "关闭":
