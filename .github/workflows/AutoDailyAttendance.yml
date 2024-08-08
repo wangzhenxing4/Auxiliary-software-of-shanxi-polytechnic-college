@@ -20,6 +20,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install requests
+          pio install rsa
 
       - name: Run Auto Daily Attendance
         env:
