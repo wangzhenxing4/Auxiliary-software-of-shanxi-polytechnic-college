@@ -19,9 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests
-          pip install ddddocr
-          pip install rsa
+          pip install -r requirements.txt
 
       - name: Run
         env:
