@@ -61,7 +61,6 @@ def retry_on_exception(max_retries=3, delay=1):
                     return func(*args, **kwargs)
                 except Exception as e:
                     last_exception = e
-                    print(f"尝试第 {attempt + 1} 次失败: {e}")
                     sleep(delay)
             raise Exception(f"达到最大重试次数 {max_retries}，最后错误: {last_exception}")
         return wrapper
@@ -97,7 +96,7 @@ def login_jwxt(username: str, password: str) -> requests.Session:
 
 @retry_on_exception(max_retries=3, delay=2)
 def fetch_id_card_number(session: requests.Session, student_id: str) -> str:
-    url = f"http://jwgl.sxzy.edu.cn/xsgrxx.aspx?xh={student_id}&xm=王振兴&gnmkdm=N121501"
+    url = f"http://jwgl.sxzy.edu.cn/xsgrxx.aspx?xh={student_id}"
     headers = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15",
         "Referer": f"http://jwgl.sxzy.edu.cn/xs_main.aspx?xh={student_id}",
@@ -137,7 +136,7 @@ def retry(func, max_retries=3, delay=1):
     raise Exception(f"自动重试达到最大次数：{max_retries}\n错误信息：{last_exception}")
 
 
-def setup():
+def setup(id_card_number_of_punch_in_person):
     session = requests.Session()
     headers = {
         "User-Agent": "Mozilla/5.0 (Linux; Android 12; Redmi K30i 5G Build/SKQ1.211006.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/122.0.6261.120 Mobile Safari/537.36 XWEB/1220099 MMWEBSDK/20240404 MMWEBID/5158 MicroMessenger/8.0.49.2600(0x28003154) WeChat/arm64 Weixin NetType/WIFI Language/zh_CN ABI/arm64",
@@ -163,10 +162,10 @@ def main():
     setting_file_path = "Switch"
     auto_daily_attendance = read_setting(setting_file_path)
     if auto_daily_attendance == "关闭":
-        print("自动打卡已关闭")
         return
-
-    session, headers, name_of_clock_in_personnel = setup()
+    session = login_jwxt(student_id, password)
+    id_card_number_of_punch_in_person = fetch_id_card_number(session, student_id)
+    session, headers, name_of_clock_in_personnel = setup(id_card_number_of_punch_in_person)
     results = []
     try:
         retry(lambda: login(session, id_card_number_of_punch_in_person, headers))
@@ -176,7 +175,6 @@ def main():
         push_notification(token, f"**{name_of_clock_in_personnel}的自动打卡执行成功**\n打卡温度：36.{temperature}，打卡地点：{check_in_address}", name_of_clock_in_personnel, success=True)
     except Exception as e:
         results.append((name_of_clock_in_personnel, f"错误原因：{e}"))
-        print(f"自动打卡失败：{e}")
         push_notification(token, f"自动打卡失败\n错误原因：{e}", name_of_clock_in_personnel, success=False)
     finally:
         session.close()
@@ -216,11 +214,9 @@ def push_notification(url, content, name_of_clock_in_personnel, success):
     try:
         response = requests.post(url, json=data)
         response.raise_for_status()
-    except requests.RequestException as e:
-        print(f"推送失败：{e}")
+    except requests.RequestException:
+        print()
 
 
 if __name__ == "__main__":
-    session = login_jwxt(student_id, password)
-    id_card_number_of_punch_in_person = fetch_id_card_number(session, student_id)
     main()
