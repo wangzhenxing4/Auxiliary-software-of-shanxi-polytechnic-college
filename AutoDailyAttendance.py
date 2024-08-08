@@ -131,7 +131,6 @@ def retry(func, max_retries=3, delay=1):
             return func()
         except Exception as e:
             last_exception = e
-            print(f"自动尝试重试，第{attempt + 1}次：{e}")
             sleep(delay)
     raise Exception(f"自动重试达到最大次数：{max_retries}\n错误信息：{last_exception}")
 
