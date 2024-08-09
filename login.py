@@ -38,3 +38,14 @@ def login_jwxt(username: str, password: str) -> tuple[requests.Session, str]:
     response.raise_for_status()
     full_name = extract_student_names(response)
     return session, full_name
+
+
+def login_jwxt_ttdk(username: str, password: str) -> requests.Session:
+    session = requests.Session()
+    verify_code, rsa_modulus = get_verification_code_and_rsa_modulus(session)
+    data = build_login_data(username, password, rsa_modulus, verify_code)
+    headers = {"User-Agent": get_user_agent()}
+    response = session.post("http://jwgl.sxzy.edu.cn/", headers=headers, data=data)
+    response.raise_for_status()
+    return session
+
