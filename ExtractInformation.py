@@ -1,12 +1,9 @@
 import urllib.parse
 import requests
-
-from retry import retry_autodailyattendance
 from utils import get_user_agent
 from decrypt import extract_from_html
 
 
-@retry_autodailyattendance(retries=3, delay=5, backoff=2)
 def fetch_id_card_number(session: requests.Session, student_id: str) -> str:
     url = f"http://jwgl.sxzy.edu.cn/xsgrxx.aspx?xh={student_id}"
     headers = {"User-Agent": get_user_agent(), "Referer": f"http://jwgl.sxzy.edu.cn/xs_main.aspx?xh={student_id}"}

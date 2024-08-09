@@ -27,10 +27,11 @@ def checkin(session, name_of_clock_in_personnel, headers):
     return temperature, check_in_address
 
 
+@retry(retries=3, delay=1, backoff=2)
 def perform_checkin(id_card_number_of_punch_in_person):
     session, headers, name_of_clock_in_personnel = setup(id_card_number_of_punch_in_person)
-    retry(lambda: login(session, id_card_number_of_punch_in_person, headers))
-    temperature, check_in_address = retry(lambda: checkin(session, name_of_clock_in_personnel, headers))
+    login(session, id_card_number_of_punch_in_person, headers)
+    temperature, check_in_address = checkin(session, name_of_clock_in_personnel, headers)
     return name_of_clock_in_personnel, temperature, check_in_address
 
 

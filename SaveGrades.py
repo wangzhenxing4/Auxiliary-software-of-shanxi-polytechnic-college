@@ -18,13 +18,14 @@ def save(md_content: str, full_name: str, push_token: str):
 
     if new_md5 == old_md5:
         print("成绩没有更新")
+        return
     else:
-        score_information_push(md_content, full_name, push_token)
         save_local(md_content, old_filename)
         with open(md5_filename, 'w', encoding='utf-8') as file:
             file.write(new_md5)
         with open('push_flag.txt', 'w') as file:
             file.write('MD5 changed')
+        score_information_push(md_content, full_name, push_token, success=True)
 
 
 def save_local(md_content: str, filename: str) -> None:
