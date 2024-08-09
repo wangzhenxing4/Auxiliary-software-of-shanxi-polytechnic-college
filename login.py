@@ -1,3 +1,4 @@
+import sys
 import requests
 from ExtractInformation import extract_student_names
 from ExtractVerificationCode import get_verification_code_and_rsa_modulus
@@ -39,6 +40,7 @@ def login_jwxt_ttdk(username: str, password: str) -> requests.Session:
     if "密码错误" in response.text:
         raise ValueError("登录失败：密码错误，程序终止！")
     return session
+
 
 
 def login_jwxt(username: str, password: str) -> tuple:

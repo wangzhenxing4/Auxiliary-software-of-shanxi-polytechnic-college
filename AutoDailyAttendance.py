@@ -2,14 +2,14 @@ import sys
 from config import student_id, password, token
 from login import login_jwxt_ttdk
 from notification import push_notification
-from ReadSetting import read_setting
+from ReadSetting import read_setting_autodailyattendance
 from ExtractInformation import fetch_id_card_number
 from checkin import perform_checkin
 
 
 def main():
     setting_file_path = "Switch"
-    auto_daily_attendance = read_setting(setting_file_path)
+    auto_daily_attendance = read_setting_autodailyattendance(setting_file_path)
     if auto_daily_attendance == "关闭":
         return
     session = None

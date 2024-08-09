@@ -28,6 +28,7 @@ def save(md_content: str, full_name: str, push_token: str):
         score_information_push(md_content, full_name, push_token, success=True)
 
 
+
 def save_local(md_content: str, filename: str) -> None:
     with open(filename, 'w', encoding='utf-8') as file:
         file.write(md_content)
