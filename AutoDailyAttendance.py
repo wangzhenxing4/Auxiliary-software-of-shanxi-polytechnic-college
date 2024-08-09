@@ -1,5 +1,5 @@
 from config import student_id, password, token
-from login import login_jwxt
+from login import login_jwxt_ttdk
 from notification import push_notification
 from ReadSetting import read_setting
 from ExtractInformation import fetch_id_card_number
@@ -11,7 +11,7 @@ def main():
     auto_daily_attendance = read_setting(setting_file_path)
     if auto_daily_attendance == "关闭":
         return
-    session, full_name = login_jwxt(student_id, password)
+    session = login_jwxt_ttdk(student_id, password)
     id_card_number_of_punch_in_person = fetch_id_card_number(session, student_id)
     results = []
     name_of_clock_in_personnel = None
