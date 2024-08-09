@@ -1,3 +1,4 @@
+import sys
 from config import student_id, password, token
 from ReadSetting import read_setting
 from login import login_jwxt
@@ -23,6 +24,9 @@ def rerun(max_retries=3):
                 save(md_content, full_name, push_token)
                 break
             except ValueError as e:
+                if "密码错误" in str(e):
+                    print(f"终止程序: {e}")
+                    sys.exit(1)
                 print(f"尝试失败: {e}")
                 attempt += 1
                 if attempt >= max_retries:

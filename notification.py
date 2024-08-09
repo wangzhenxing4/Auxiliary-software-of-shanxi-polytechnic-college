@@ -4,7 +4,7 @@ import requests
 def push_notification(token: str, content: str, name: str, success: bool):
     if not token:
         return
-    title = f"{name}的自动打卡执行成功" if success else f"**{name}的自动打卡执行失败**"
+    title = f"{name}的自动打卡执行成功" if success else f"{name}的自动打卡执行失败"
     data = {
         "title": title,
         "content": content,
