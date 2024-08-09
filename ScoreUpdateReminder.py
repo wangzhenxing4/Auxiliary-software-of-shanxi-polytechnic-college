@@ -1,7 +1,8 @@
 from config import student_id, password, token
 from ReadSetting import read_setting
 from login import login_jwxt
-from grade import fetch_student_grades, extract_grades
+from ObtainGrades import fetch_student_grades
+from ExtractGrades import extract_grades
 from SaveGrades import save
 
 
