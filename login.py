@@ -1,21 +1,32 @@
-import ddddocr
 import requests
-from utils import extract_from_html, get_user_agent, build_login_data
+from ExtractInformation import extract_student_names
+from ExtractVerificationCode import get_verification_code_and_rsa_modulus
+from decrypt import rsa_encrypt, bytes_to_hex_upper
+from utils import get_user_agent
 
 
-def get_verification_code_and_rsa_modulus(session) -> tuple[str, str]:
-    headers = {"User-Agent": get_user_agent()}
-    response = session.get("http://jwgl.sxzy.edu.cn/", headers=headers)
+def login(session, id_card_number_of_punch_in_person, headers):
+    login_url = "http://fdcat.cn365vip.com/addu.php"
+    response = session.post(login_url, data={"u_name": id_card_number_of_punch_in_person, "upwd": "111111"}, headers=headers)
     response.raise_for_status()
-    verify_key = extract_from_html(r'src="/CheckCode.aspx\?SafeKey=([^"]+)"', response.text)
-    rsa_modulus = extract_from_html(r'id="txtKeyModulus" style="display:none" value="([0-9A-F]+)"', response.text)
-    if not verify_key or not rsa_modulus:
-        raise ValueError("无法提取验证码或RSA模数")
-    verify_code_url = f"http://jwgl.sxzy.edu.cn/CheckCode.aspx?SafeKey={verify_key}"
-    picture_response = session.get(verify_code_url, headers=headers)
-    picture_response.raise_for_status()
-    verify_code = ddddocr.DdddOcr(show_ad=False).classification(picture_response.content)
-    return verify_code, rsa_modulus
+
+
+def build_login_data(username: str, password: str, rsa_modulus: str, verify_code: str) -> dict:
+    return {
+        "__VIEWSTATE": "tA6uBVKFegpyqnoAaHndgJpnE5COnAaCgoHV7Y3HhVb5hEH5WAjqds6F6l4ABOPYbAgvkGL8voLxZe/bkFq2R2ka+8A=",
+        "__VIEWSTATEGENERATOR": "0564CA07",
+        "__EVENTVALIDATION": "sn2KJ9wlNDzVvr5WZDL+uxBk4M4Wj8jgLjEjaxvHD/AYIXku5dH3FOT0SYvQ72EVlnwAQpApuHY7rcjdnwOhv"
+                             "+BfNVjsDU+6LmqP0gG202suxNXXVCnDhsb5NKaurjmy6OVJqflrgAS3ZMX2ujXhFBO3ftr9sPeagR2VPoF2zDZ0"
+                             "/1+9xn6yDPSWUYlnr8bgIGXbWvo2ykEr4C8/qOuNK"
+                             "+tCJVrbt7r7FaSbFJdM5zgJaK7GqqZeRwRyIuMgZC1cZt0tXZ1ze6Sz3XxuTeBokkYGfxkdslj5yc1dTscLMcLQGz4Y6M0Uh0RHHaHfKO+BbJnUzxkdjpNSdASh8uV2jnP8smI=",
+        "TextBox1": username,
+        "TextBox2": bytes_to_hex_upper(rsa_encrypt(password, rsa_modulus)),
+        "txtSecretCode": verify_code,
+        "RadioButtonList1": "学生",
+        "Button1": "登录",
+        "txtKeyExponent": "010001",
+        "txtKeyModulus": rsa_modulus,
+    }
 
 
 def login_jwxt(username: str, password: str) -> tuple[requests.Session, str]:
@@ -29,21 +40,12 @@ def login_jwxt(username: str, password: str) -> tuple[requests.Session, str]:
     return session, full_name
 
 
-def fetch_id_card_number(session: requests.Session, student_id: str) -> str:
-    url = f"http://jwgl.sxzy.edu.cn/xsgrxx.aspx?xh={student_id}"
-    headers = {"User-Agent": get_user_agent(), "Referer": f"http://jwgl.sxzy.edu.cn/xs_main.aspx?xh={student_id}"}
-    response = session.get(url, headers=headers, allow_redirects=False)
+def login_jwxt_ttdk(username: str, password: str) -> requests.Session:
+    session = requests.Session()
+    verify_code, rsa_modulus = get_verification_code_and_rsa_modulus(session)
+    data = build_login_data(username, password, rsa_modulus, verify_code)
+    headers = {"User-Agent": get_user_agent()}
+    response = session.post("http://jwgl.sxzy.edu.cn/", headers=headers, data=data)
     response.raise_for_status()
-    html_content = response.text
-    id_card_number = extract_from_html(r'<span id="lbl_sfzh">([^<]+)</span>', html_content)
-    if not id_card_number:
-        raise ValueError("无法提取身份证号码")
-    return id_card_number
+    return session
 
-
-def extract_student_names(response: requests.Response) -> str:
-    html_content = response.text
-    full_name = extract_from_html(r'<span id="xhxm">([^<]+)同学</span>', html_content)
-    if not full_name:
-        raise ValueError("无法提取学生姓名")
-    return full_name

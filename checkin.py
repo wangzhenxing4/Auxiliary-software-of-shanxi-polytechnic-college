@@ -1,16 +1,9 @@
 import requests
-import urllib.parse
 import random
-from utils import retry, get_user_agent
 from config import CHECK_IN_TIME, check_in_address_school, check_in_address_home
-
-
-def get_name(cookies):
-    if 'unm' in cookies:
-        unm = cookies['unm']
-        return urllib.parse.unquote(unm)
-    else:
-        raise Exception("无法获取到打卡人的姓名")
+from ExtractInformation import get_name
+from utils import get_user_agent
+from retry import retry
 
 
 def login(session, id_card_number_of_punch_in_person, headers):
