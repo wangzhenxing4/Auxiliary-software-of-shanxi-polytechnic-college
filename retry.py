@@ -3,7 +3,7 @@ from random import randint
 from functools import wraps
 
 
-def retry(retries=-1, delay=1, backoff=2, stop_exceptions=()):
+def retry(retries=3, delay=1, backoff=2, stop_exceptions=()):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
