@@ -11,7 +11,7 @@ def read_setting(file_path):
     return "关闭"
 
 
-def read_setting_autodailyattendance(file_path):
+def read_setting_AutoDailyAttendance(file_path):
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
             for line in file:
