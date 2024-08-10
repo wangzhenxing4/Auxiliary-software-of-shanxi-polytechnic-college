@@ -30,7 +30,7 @@ def build_login_data(username: str, password: str, rsa_modulus: str, verify_code
     }
 
 
-@retry(stop_exceptions=(ValueError,))
+@retry(stop_exceptions=())
 def login_jwxt_ttdk(username: str, password: str) -> requests.Session:
     session = requests.Session()
     verify_code, rsa_modulus = get_verification_code_and_rsa_modulus(session)
@@ -41,7 +41,7 @@ def login_jwxt_ttdk(username: str, password: str) -> requests.Session:
     if "密码错误" in response.text:
         raise ValueError("登录失败：密码错误，程序终止！")
     if "验证码不正确！！" in response.text:
-        raise ValueError("验证码不正确！！")
+        raise Exception("验证码不正确！！")
     return session
 
 
@@ -56,7 +56,8 @@ def login_jwxt(username: str, password: str) -> tuple:
     if "密码错误" in response.text:
         raise ValueError("登录失败：密码错误，程序终止！")
     if "验证码不正确！！" in response.text:
-        raise ValueError("验证码不正确！！")
+        raise Exception("验证码不正确！！")
     full_name = extract_student_names(response)
     return session, full_name
+
 
