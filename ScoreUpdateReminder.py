@@ -23,18 +23,11 @@ def rerun():
     except ValueError as e:
         error_message = f"终止程序: {e}" if "密码错误" in str(e) else f"发生错误: {e}"
         print(f"[ERROR] {error_message}")
-        try:
-            score_information_push(error_message, "你", token, success=False)
-        except Exception as push_error:
-            print(f"[ERROR] 发送通知失败: {push_error}")
-        sys.exit(1)
-    except Exception as e:
-        error_message = f"发生未预期的错误: {e}"
-        print(f"[ERROR] {error_message}")
-        try:
-            score_information_push(error_message, "你", token, success=False)
-        except Exception as push_error:
-            print(f"[ERROR] 发送通知失败: {push_error}")
+        if "密码错误" in str(e):
+            try:
+                score_information_push(error_message, "你", token, success=False)
+            except Exception as push_error:
+                print(f"[ERROR] 发送通知失败: {push_error}")
         sys.exit(1)
 
 
