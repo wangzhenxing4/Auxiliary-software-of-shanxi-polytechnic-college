@@ -30,7 +30,7 @@ def build_login_data(username: str, password: str, rsa_modulus: str, verify_code
     }
 
 
-@retry(stop_exceptions=())
+@retry(stop_exceptions=(ValueError,))
 def login_jwxt_ttdk(username: str, password: str) -> requests.Session:
     session = requests.Session()
     verify_code, rsa_modulus = get_verification_code_and_rsa_modulus(session)
