@@ -23,8 +23,9 @@ jobs:
 
       - name: Run Auto Daily Attendance
         env:
-          STUDENT_ID: ${{ secrets.STUDENT_ID }}
-          PASSWORD: ${{ secrets.PASSWORD }}
+#          STUDENT_ID: ${{ secrets.STUDENT_ID }}
+#          PASSWORD: ${{ secrets.PASSWORD }}
+          ID: ${{ secrets.ID }}
           SCHOOL_ADDRESS: ${{ secrets.SCHOOL_ADDRESS }}
           HOLIDAY_ADDRESS: ${{ secrets.HOLIDAY_ADDRESS }}
           PUSH_MESSAGE_TOKEN: ${{ secrets.PUSH_MESSAGE_TOKEN }}

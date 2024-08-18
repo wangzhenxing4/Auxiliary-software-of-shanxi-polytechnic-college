@@ -1,5 +1,5 @@
 import os
-
+id_card_number_of_punch_in_person = os.environ.get("ID")
 student_id = os.environ.get("STUDENT_ID")
 password = os.environ.get("PASSWORD")
 check_in_address_school = os.environ.get("SCHOOL_ADDRESS")

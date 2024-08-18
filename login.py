@@ -6,12 +6,6 @@ from utils import get_user_agent
 from retry import retry
 
 
-def login(session, id_card_number_of_punch_in_person, headers):
-    login_url = "http://fdcat.cn365vip.com/addu.php"
-    response = session.post(login_url, data={"u_name": id_card_number_of_punch_in_person, "upwd": "111111"}, headers=headers)
-    response.raise_for_status()
-
-
 def build_login_data(username: str, password: str, rsa_modulus: str, verify_code: str) -> dict:
     return {
         "__VIEWSTATE": "tA6uBVKFegpyqnoAaHndgJpnE5COnAaCgoHV7Y3HhVb5hEH5WAjqds6F6l4ABOPYbAgvkGL8voLxZe/bkFq2R2ka+8A=",

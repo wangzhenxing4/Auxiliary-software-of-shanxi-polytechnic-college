@@ -11,20 +11,22 @@
 
 ## 使用方法
   1.你首先需要**Fork**这个项目<br>
-  2.点击并关注<a href="https://push.showdoc.com.cn/">**showdoc推送服务</a>获取你的API**<br>
+  2.点击并关注<a href="https://push.showdoc.com.cn/">**showdoc推送服务</a>获取你的推送服务的API**<br>
   3.前往你Fork项目中的**Settings**中的**Secrets and variables**中的**Actions**，并点击**New repository secret**<br>
   4.添加以下内容
-  - （1）添加STUDENT_ID，内容为你的学号
-  - （2）添加PASSWORD，内容是你教务系统的登录密码（务必填写正确）
-  - （3）添加SCHOOL_ADDRESS，内容为学校地址<br>
+  - （1）添加ID，内容是你的身份证号码
+  - （2）添加STUDENT_ID，内容为你的学号
+  - （3）添加PASSWORD，内容是你教务系统的登录密码（务必填写正确）
+  - （4）添加SCHOOL_ADDRESS，内容为学校地址<br>
   参考学校地址：<br>
     中国山西省太原市迎泽区龙堡街_山西职业技术学院(长风校区)<br>
     中国山西省晋中市榆次区兴业街_山西职业技术学院(南校区)<br>
-    中国山西省太原市小店区_山西职业技术学院(南中环校区)<br>
-  - （4）添加HOLIDAY_ADDRESS，内容为放假地址<br>
+    中国山西省太原市小店区坞城南路_山西职业技术学院(南中环校区)<br>
+    中国山西省太原市小店区坞城路_山西职业技术学院(坞城校区)<br>
+  - （5）添加HOLIDAY_ADDRESS，内容为放假地址<br>
   参考地址：<br>
     X国XX省XX市XX县(区)_XX小区<br>
-  - （5）填写PUSH_MESSAGE_TOKEN，内容是你的完整的专属推送地址
+  - （6）填写PUSH_MESSAGE_TOKEN，内容是你的完整的专属推送地址
 
   5.在Switch中开启/关闭：填写开启或关闭，用来控制运行是否启动
     

@@ -1,9 +1,10 @@
 import sys
-from config import student_id, password, token
-from login import login_jwxt_ttdk
+from config import id_card_number_of_punch_in_person, token
+# from config import student_id, password , token
+# from login import login_jwxt_ttdk
 from notification import push_notification
 from ReadSetting import read_setting_AutoDailyAttendance
-from ExtractInformation import fetch_id_card_number
+# from ExtractInformation import fetch_id_card_number
 from checkin import perform_checkin
 
 
@@ -14,8 +15,8 @@ def main():
         return
     session = None
     try:
-        session = login_jwxt_ttdk(student_id, password)
-        id_card_number_of_punch_in_person = fetch_id_card_number(session, student_id)
+        # session = login_jwxt_ttdk(student_id, password)
+        # id_card_number_of_punch_in_person = fetch_id_card_number(session, student_id)
         results = []
         name_of_clock_in_personnel = None
         try:
