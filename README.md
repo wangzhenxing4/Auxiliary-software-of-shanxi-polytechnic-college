@@ -8,7 +8,7 @@
 
 - **自动打卡**：自动完成每日打卡
 - **成绩推送**：通过微信通知用户成绩
-- **获取课表**：通过用户的共享推送
+- **<a href="https://github.com/wangzhenxing4/Auxiliary-software-of-shanxi-polytechnic-college/blob/main/Curriculum.md">获取课表</a>**：通过用户的共享推送
 
 ## 使用方法
   1.你首先需要**Fork**这个项目<br>
