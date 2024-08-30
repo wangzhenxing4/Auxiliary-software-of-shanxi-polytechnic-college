@@ -12,8 +12,11 @@
 
 ## 使用方法
   1.你首先需要**Fork**这个项目<br>
+  ![第一步.png](course/第一步.png)
   2.点击并关注<a href="https://push.showdoc.com.cn/">**showdoc推送服务</a>获取你的推送服务的API**<br>
+  ![第二步.jpg](course/第二步.jpg)
   3.前往你Fork项目中的**Settings**中的**Secrets and variables**中的**Actions**，并点击**New repository secret**<br>
+  ![第三步.png](course/第三步.jpg)
   4.添加以下内容
   - （1）添加ID，内容是你的身份证号码
   - （2）添加STUDENT_ID，内容为你的学号
