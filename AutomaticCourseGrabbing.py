@@ -3,11 +3,13 @@ from utils import get_user_agent
 from config import student_id, password
 from login import login_jwxt
 
-# 请输入你的ID数字
-kcid = '0'
+# 请输入你的课程顺序
+kcid = 2
+
 
 def rerun(check_id):
     # 尝试登录教务系统，获取会话和用户全名
+    global field_name
     session, full_name = login_jwxt(student_id, password)
 
     # 获取会话的 Cookies
@@ -37,13 +39,23 @@ def rerun(check_id):
 
     # 构造动态表单字段名
     # 将用户输入的id转换为表单字段名，例如将 `kcmcGrid_xk_0` 转换为 `kcmcGrid$ctl02$xk`
-    field_name = check_id.replace("_xk_", "$ctl0").replace("kcmcGrid_xk_", "kcmcGrid$ctl") + "$xk"
+    # field_name = check_id.replace("_xk_", "$ctl0").replace("kcmcGrid_xk_", "kcmcGrid$ctl") + "$xk"
+
+    # 查找具有指定 ID 的元素
+    element = soup.find(id=check_id)
+
+    # 确保元素存在并获取 name 属性的值
+    if element:
+        field_name = element.get('name')
+        print(field_name)
+    else:
+        print("Element with ID {} not found.".format(check_id))
 
     # 模拟勾选复选框和提交表单
     data = {
         '__VIEWSTATE': viewstate,
         '__EVENTVALIDATION': eventvalidation,
-        'kcmcGrid$ctl02$xk':'on',
+        field_name: 'on',
         'Button1': '   提 交  ',  # 提交按钮
     }
 
@@ -54,8 +66,9 @@ def rerun(check_id):
     # 打印响应结果
     print(post_response.text)
 
+
 if __name__ == "__main__":
     # 用户输入的复选框 id
-    check_id = f"kcmcGrid_xk_{kcid}"
+    check_id = f"kcmcGrid_xk_{kcid - 1}"
     rerun(check_id)
-    # print(check_id)
+    print(check_id)
