@@ -4,7 +4,7 @@ from config import student_id, password
 from login import login_jwxt
 
 # 请输入你的课程顺序
-kcid = 2
+kcid = 1
 
 
 def rerun(check_id):
