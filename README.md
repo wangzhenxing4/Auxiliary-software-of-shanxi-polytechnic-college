@@ -8,9 +8,11 @@
 
 - **自动打卡**：自动完成每日打卡
 - **成绩推送**：通过微信通知用户成绩
+- **自动抢课**：自动完成抢课（未测试）
 - **<a href="https://github.com/wangzhenxing4/Auxiliary-software-of-shanxi-polytechnic-college/blob/main/Curriculum.md">获取课表</a>**：通过用户的共享推送
 
 ## 使用方法
+### 自动打卡使用方法
   1.你首先需要**Fork**这个项目<br>
   ![第一步.png](course/第一步.png)
   2.点击并关注<a href="https://push.showdoc.com.cn/">**showdoc推送服务</a>获取你的推送服务的API**<br>
@@ -19,20 +21,32 @@
   ![第三步.png](course/第三步.jpg)
   4.添加以下内容
   - （1）添加ID，内容是你的身份证号码
-  - （2）添加STUDENT_ID，内容为你的学号
-  - （3）添加PASSWORD，内容是你教务系统的登录密码（务必填写正确）
-  - （4）添加SCHOOL_ADDRESS，内容为学校地址<br>
+  - （2）添加SCHOOL_ADDRESS，内容为学校地址<br>
   参考学校地址：<br>
-    中国山西省太原市迎泽区龙堡街_山西职业技术学院(长风校区)<br>
-    中国山西省晋中市榆次区兴业街_山西职业技术学院(南校区)<br>
-    中国山西省太原市小店区坞城南路_山西职业技术学院(南中环校区)<br>
-    中国山西省太原市小店区坞城路_山西职业技术学院(坞城校区)<br>
+    迎泽区山西职业技术学院(长风校区)<br>
+    榆次区山西职业技术学院(南校区)<br>
+    高新科技产业区山西职业技术学院(南中环校区)<br>
+    小店区坞城路山西职业技术学院(坞城校区)<br>
   - （5）添加HOLIDAY_ADDRESS，内容为放假地址<br>
   参考地址：<br>
-    X国XX省XX市XX县(区)_XX小区<br>
+    XX县(区)XX小区<br>
   - （6）填写PUSH_MESSAGE_TOKEN，内容是你的完整的专属推送地址
 
   5.在Switch中开启/关闭：填写开启或关闭，用来控制运行是否启动
+### 成绩自动更新提醒
+  1.你首先需要**Fork**这个项目<br>
+  ![第一步.png](course/第一步.png)
+  2.点击并关注<a href="https://push.showdoc.com.cn/">**showdoc推送服务</a>获取你的推送服务的API**<br>
+  ![第二步.jpg](course/第二步.jpg)
+  3.前往你Fork项目中的**Settings**中的**Secrets and variables**中的**Actions**，并点击**New repository secret**<br>
+  ![第三步.png](course/第三步.jpg)
+  4.添加以下内容
+  - （1）添加STUDENT_ID，内容为你的学号
+  - （2）添加PASSWORD，内容是你教务系统的登录密码（务必填写正确） 
+  - （3）填写PUSH_MESSAGE_TOKEN，内容是你的完整的专属推送地址
+  5.在Switch中开启/关闭：填写开启或关闭，用来控制运行是否启动
+### 运行自动抢课
+  因自动抢课需要实时性快速触发，建议拉取代码使用，目前只能通过代码实现，没有GUI可视化窗口，并且极不稳定
     
 
 ## 特别感谢
