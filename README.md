@@ -4,6 +4,9 @@
 
 无论你是想学习还是如何利用编程辅助自己解决实际问题，还是简单地希望减少每天的重复操作，这个项目都能为你提供一个很好的学习和实践机会。希望你能享受带来的便利，并在此基础上探索更多有趣的应用！
 
+## 项目地址
+<a href="https://github.com/wangzhenxing4/Auxiliary-software-of-shanxi-polytechnic-college">山西职业技术学院辅助软件</a>
+
 ## 功能介绍
 
 - **自动打卡**：自动完成每日打卡
@@ -13,6 +16,7 @@
 
 ## 使用方法
 ### 必要步骤
+打开<a href="https://github.com/wangzhenxing4/Auxiliary-software-of-shanxi-polytechnic-college">山西职业技术学院辅助软件</a>
   - 你首先需要**Fork**这个项目<br>
   ![第一步.png](course/第一步.png)
 ### 自动打卡使用方法
