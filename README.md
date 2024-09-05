@@ -1,4 +1,4 @@
-# 山西职业技术学院辅助软件
+# <a href="https://github.com/wangzhenxing4/Auxiliary-software-of-shanxi-polytechnic-college">山西职业技术学院辅助软件</a>
 
 欢迎来到山西职业技术学院！本项目致力于为同学们提供便捷的辅助功能，让你能够省去繁琐的功能，节省宝贵的时间，提升个人效率。通过这个项目，你可以利用现代技术手段，实现辅助功能。
 
