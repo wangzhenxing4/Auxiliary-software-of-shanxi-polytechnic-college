@@ -1,12 +1,10 @@
 from bs4 import BeautifulSoup
 from utils import get_user_agent
-from config import student_id, password, course_id
+from config import student_id, password, course_id, course_id2
 from login import login_jwxt
 
 
 def rerun(check_id):
-    # 尝试登录教务系统，获取会话和用户全名
-    global field_name
     session, full_name = login_jwxt(student_id, password)
 
     # 获取会话的 Cookies
@@ -34,19 +32,15 @@ def rerun(check_id):
     viewstate = soup.find('input', {'id': '__VIEWSTATE'}).get('value')
     eventvalidation = soup.find('input', {'id': '__EVENTVALIDATION'}).get('value')
 
-    # 构造动态表单字段名
-    # 将用户输入的id转换为表单字段名，例如将 `kcmcGrid_xk_0` 转换为 `kcmcGrid$ctl02$xk`
-    # field_name = check_id.replace("_xk_", "$ctl0").replace("kcmcGrid_xk_", "kcmcGrid$ctl") + "$xk"
-
     # 查找具有指定 ID 的元素
     element = soup.find(id=check_id)
 
     # 确保元素存在并获取 name 属性的值
     if element:
         field_name = element.get('name')
-        print(field_name)
     else:
-        print("Element with ID {} not found.".format(check_id))
+        print(f"Element with ID {check_id} not found.")
+        return False
 
     # 模拟勾选复选框和提交表单
     data = {
@@ -61,11 +55,30 @@ def rerun(check_id):
     post_response.raise_for_status()
 
     # 打印响应结果
-    print(post_response.text)
+    response_text = post_response.text
+    print(response_text)
+
+    # 检查是否提示人数超过限制
+    if ("人数超过限制！！" in response_text or
+            "上课时间冲突！！" in response_text):
+        return False
+    return True
 
 
 if __name__ == "__main__":
-    # 用户输入的复选框 id
-    check_id = f"kcmcGrid_xk_{course_id - 1}"
-    rerun(check_id)
-    print(check_id)
+    # 先尝试kcid1和kcid2
+    initial_ids = [course_id, course_id2]
+    for cid in initial_ids:
+        check_id = f"kcmcGrid_xk_{cid - 1}"
+        if rerun(check_id):
+            print(f"Success with check_id: {check_id}")
+            break
+    else:
+        # 如果kcid1和kcid2都失败，尝试1到10的ID
+        for cid in range(1, 15):
+            check_id = f"kcmcGrid_xk_{cid - 1}"
+            if rerun(check_id):
+                print(f"Success with check_id: {check_id}")
+                break
+        else:
+            print("All attempts failed.")

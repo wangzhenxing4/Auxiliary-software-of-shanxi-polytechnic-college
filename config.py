@@ -5,4 +5,6 @@ password = os.environ.get("PASSWORD")
 check_in_address_school = os.environ.get("SCHOOL_ADDRESS")
 check_in_address_home = os.environ.get("HOLIDAY_ADDRESS")
 token = os.environ.get("PUSH_MESSAGE_TOKEN")
+course_id = os.environ.get("COURSE_ID")
+course_id2 = os.environ.get("")
 CHECK_IN_TIME = '放假'
