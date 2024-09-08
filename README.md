@@ -19,7 +19,7 @@
 打开<a href="https://github.com/wangzhenxing4/Auxiliary-software-of-shanxi-polytechnic-college">山西职业技术学院辅助软件</a>
   - 你首先需要**Fork**这个项目<br>
   ![第一步.png](course/第一步.png)
-### 自动打卡使用方法
+#### 自动打卡使用方法
   1.点击并关注<a href="https://push.showdoc.com.cn/">**showdoc推送服务</a>获取你的推送服务的API**<br>
   ![第二步.jpg](course/第二步.jpg)
   2.前往你Fork项目中的**Settings**中的**Secrets and variables**中的**Actions**，并点击**New repository secret**<br>
@@ -38,7 +38,7 @@
   - （6）填写PUSH_MESSAGE_TOKEN，内容是你的完整的专属推送地址
 
   4.在Switch中开启/关闭：填写开启或关闭，用来控制运行是否启动
-### 成绩自动更新提醒
+#### 成绩自动更新提醒
   1.点击并关注<a href="https://push.showdoc.com.cn/">**showdoc推送服务</a>获取你的推送服务的API**<br>
   ![第二步.jpg](course/第二步.jpg)
   2.前往你Fork项目中的**Settings**中的**Secrets and variables**中的**Actions**，并点击**New repository secret**<br>
@@ -48,7 +48,7 @@
   - （2）添加PASSWORD，内容是你教务系统的登录密码（务必填写正确） 
   - （3）填写PUSH_MESSAGE_TOKEN，内容是你的完整的专属推送地址
   4.在Switch中开启/关闭：填写开启或关闭，用来控制运行是否启动
-### 运行自动抢课
+#### 自动抢课
 **自动抢课原则上需要实时性快速触发，目前极不稳定<br>**
   1.前往你Fork项目中的**Settings**中的**Secrets and variables**中的**Actions**，并点击**New repository secret**<br>
   ![第三步.png](course/第三步.jpg)
@@ -65,17 +65,20 @@
   - Auto Daily Attendance自动每日00:00运行
   - Score Update Reminder自动每半小时运行
   - Automatic Course Grabbing未设置自动运行
+
+## 问题
+  ### 常见问题
+  ### 其他问题
+  - 如果在使用过程中遇到任何问题或有其他建议，欢迎随时<a href="http://wangzhenxing4.github.io">联系我</a>，我将竭诚为你提供支持和帮助。祝愿你在山西职业技术学院的学习生活中一切顺利！
+
 ## 特别感谢
-  ### 特别感谢：<a href="https://github.com/deijing">初沐</a>提供的技术支持，同时也感谢GitHub、Python、requests库、ddddocr库、rsa库、bs4库、functools库、Regable软件、Charles软件、JetBrains提供的软件与技术支持
+  ### 特别感谢：<a href="https://github.com/deijing">初沐</a>提供的技术支持，同时也感谢<a href="https://github.com">GitHub</a>、<a href="https://www.python.org">Python</a>、requests库、ddddocr库、rsa库、bs4库、functools库、Regable软件、Charles软件、JetBrains提供的软件与技术支持，以及<a href="https://www.sxzy.edu.cn">山西职业技术学院官方网站</a>和<a href="http://jwgl.sxzy.edu.cn">山西职业技术学院教务系统</a>的网站
   ### 项目源代码
   **<a href="https://github.com/wangzhenxing4/AutoDailyAttendance">山西职业技术学院自动每日打卡任务</a>** 的自动完成打卡源代码
   <br>
   **<a href="https://github.com/wangzhenxing4/ScoreUpdateReminder">山西职业技术学院成绩更新自动推送</a>** 的获取成绩更新源代码
   <br>
   **<a href="https://github.com/wangzhenxing4/AutomaticCourseGrabbing">山西职业技术学院自动完成抢选修课</a>** 的自动抢选修课源代码
-
-## 其他问题
-  - 如果在使用过程中遇到任何问题或有其他建议，欢迎随时<a href="http://wangzhenxing4.github.io">联系我</a>，我将竭诚为你提供支持和帮助。祝愿你在山西职业技术学院的学习生活中一切顺利！
 ## 版权许可
   - 当前项目受到Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International版权保护
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/wangzhenxing4/Auxiliary-software-of-shanxi-polytechnic-college">Auxiliary software of shanxi polytechnic college</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="http://wangzhenxing4.github.io">王振兴</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a></p>
