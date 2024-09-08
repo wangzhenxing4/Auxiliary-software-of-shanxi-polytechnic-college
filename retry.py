@@ -3,7 +3,7 @@ from random import randint
 from functools import wraps
 
 
-def retry(retries=3, delay=1, backoff=2, stop_exceptions=()):
+def retry(retries=5, delay=1, backoff=2, stop_exceptions=()):
     """
     装饰器：用于对函数进行重试操作
 
