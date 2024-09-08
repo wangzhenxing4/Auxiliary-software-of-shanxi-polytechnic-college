@@ -44,9 +44,9 @@ def rerun(check_id):
     # 确保元素存在并获取 name 属性的值
     if element:
         field_name = element.get('name')
-        print(field_name)
+        # print(field_name)
     else:
-        print("Element with ID {} not found.".format(check_id))
+        print(f"没有找到这门课程")
 
     # 模拟勾选复选框和提交表单
     data = {
@@ -61,11 +61,17 @@ def rerun(check_id):
     post_response.raise_for_status()
 
     # 打印响应结果
-    print(post_response.text)
+    # print(post_response.text)
+
+    # 检查响应文本中是否包含特定字符串
+    if "人数超过限制！！" not in post_response.text and "上课时间冲突！！" not in post_response.text and "现在不是选课时间！！" not in post_response.text:
+        print("抢课成功")
+    else:
+        print("抢课失败")
 
 
 if __name__ == "__main__":
     # 用户输入的复选框 id
     check_id = f"kcmcGrid_xk_{course_id - 1}"
     rerun(check_id)
-    print(check_id)
+    # print(check_id)
