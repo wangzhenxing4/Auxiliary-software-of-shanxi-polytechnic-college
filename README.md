@@ -37,7 +37,8 @@
     XX县(区)XX小区<br>
   - （6）填写PUSH_MESSAGE_TOKEN，内容是你的完整的专属推送地址
 
-  4.在Switch中开启/关闭：填写开启或关闭，用来控制运行是否启动
+  4.在文件中的config.py中的CHECK_IN_TIME = '未放假'改为放假或者是其他，如果是放假就是打卡在家里，其他就是在学校
+  5.在Switch中开启/关闭：填写开启或关闭，用来控制运行是否启动
 #### 成绩自动更新提醒
   1.点击并关注<a href="https://push.showdoc.com.cn/">**showdoc推送服务</a>获取你的推送服务的API**<br>
   ![第二步.jpg](course/第二步.jpg)
